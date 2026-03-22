@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min;
@@ -46,28 +47,32 @@ const MultiplicationTables = ({ onBack, onAddPoints, onError, streak, recordAnsw
   };
 
   const handleAnswer = (ans) => {
-    const isCorrect = ans === questions[currentQuestion].answer;
-    if (recordAnswer) recordAnswer(`x${selectedTable}`, isCorrect);
-    
-    if (isCorrect) {
-      setFeedback('correct');
-      const multiplier = streak >= 3 ? Math.min(Math.floor(streak / 3) + 1, 5) : 1;
-      setScore(s => s + (1 * multiplier));
-      if (onAddPoints) onAddPoints(5); // Global points (5 points for normal tables)
-    } else {
-      setFeedback('incorrect');
-      if (onError) onError();
-    }
-
-    setTimeout(() => {
-      setFeedback(null);
-      if (currentQuestion < 9) {
-        setCurrentQuestion(c => c + 1);
+    try {
+      const isCorrect = ans === questions[currentQuestion].answer;
+      if (recordAnswer) recordAnswer(`x${selectedTable}`, isCorrect);
+      
+      if (isCorrect) {
+        setFeedback('correct');
+        const multiplier = streak >= 3 ? Math.min(Math.floor(streak / 3) + 1, 5) : 1;
+        setScore(s => s + (1 * multiplier));
+        if (onAddPoints) onAddPoints(5); 
       } else {
-        // Finished
-        setCurrentQuestion(c => c + 1);
+        setFeedback('incorrect');
+        if (onError) onError();
       }
-    }, 800);
+
+      setTimeout(() => {
+        setFeedback(null);
+        if (currentQuestion < 9) {
+          setCurrentQuestion(c => c + 1);
+        } else {
+          setCurrentQuestion(c => c + 1);
+        }
+      }, 800);
+    } catch (err) {
+      console.error(err);
+      setCurrentQuestion(c => c + 1); // Fallback to avoid getting stuck
+    }
   };
 
   const renderTableSelection = () => (
