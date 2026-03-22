@@ -12,32 +12,24 @@ const SongsAndVideos = ({ onBack }) => {
         
         <div>
           <h3 style={{ marginBottom: '10px', fontSize: '1.4rem', color: 'var(--secondary)' }}>
-            👶 Para los más peques (Infantil)
+            👶 Para los más pequeños (Infantil)
           </h3>
-          <div style={{ position: 'relative', overflow: 'hidden', paddingTop: '56.25%', borderRadius: '15px', boxShadow: 'var(--shadow-md)' }}>
-            <iframe 
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
-              src="https://www.youtube.com/embed?listType=search&list=canciones+infantiles+tablas+de+multiplicar" 
-              title="YouTube video player" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowFullScreen>
-            </iframe>
-          </div>
+          <a href="https://www.youtube.com/results?search_query=canciones+infantiles+tablas+de+multiplicar" target="_blank" rel="noreferrer" style={{ display: 'block', padding: '40px', background: 'linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%)', borderRadius: '15px', textDecoration: 'none', color: '#333', textAlign: 'center', boxShadow: 'var(--shadow-md)', marginBottom: '20px', transition: 'transform 0.2s' }}>
+            <span style={{ fontSize: '3rem', display: 'block', marginBottom: '10px' }}>👶📺</span>
+            <h3 style={{ margin: 0 }}>Abrir Canciones en YouTube</h3>
+            <p style={{ margin: '5px 0 0 0', opacity: 0.8 }}>Ver todos los videos recomendados para niños pequeños</p>
+          </a>
         </div>
 
         <div>
           <h3 style={{ marginBottom: '10px', fontSize: '1.4rem', color: '#E67E22' }}>
             🎧 Rap y Ritmos Urbanos
           </h3>
-          <div style={{ position: 'relative', overflow: 'hidden', paddingTop: '56.25%', borderRadius: '15px', boxShadow: 'var(--shadow-md)' }}>
-            <iframe 
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
-              src="https://www.youtube.com/embed?listType=search&list=rap+tablas+de+multiplicar+educativo" 
-              title="YouTube video player" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowFullScreen>
-            </iframe>
-          </div>
+          <a href="https://www.youtube.com/results?search_query=rap+tablas+de+multiplicar+educativo" target="_blank" rel="noreferrer" style={{ display: 'block', padding: '40px', background: 'linear-gradient(135deg, #F6D365 0%, #FDA085 100%)', borderRadius: '15px', textDecoration: 'none', color: '#fff', textAlign: 'center', boxShadow: 'var(--shadow-md)', marginBottom: '20px', transition: 'transform 0.2s' }}>
+            <span style={{ fontSize: '3rem', display: 'block', marginBottom: '10px' }}>🎧📺</span>
+            <h3 style={{ margin: 0 }}>Abrir Raps en YouTube</h3>
+            <p style={{ margin: '5px 0 0 0', opacity: 0.9 }}>Escuchar ritmos urbanos con las tablas de multiplicar</p>
+          </a>
         </div>
 
         <div>
@@ -69,15 +61,11 @@ const SongsAndVideos = ({ onBack }) => {
               </a>
             ))}
           </div>
-          <div style={{ position: 'relative', overflow: 'hidden', paddingTop: '56.25%', borderRadius: '15px', boxShadow: 'var(--shadow-md)', marginTop: '10px' }}>
-            <iframe 
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
-              src="https://www.youtube.com/embed?listType=search&list=cachureos+tablas+de+multiplicar+karaoke" 
-              title="YouTube video player Cachureos" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowFullScreen>
-            </iframe>
-          </div>
+          
+          <a href="https://www.youtube.com/results?search_query=cachureos+tablas+de+multiplicar+karaoke" target="_blank" rel="noreferrer" style={{ display: 'block', padding: '30px', background: 'linear-gradient(135deg, #84FAB0 0%, #8FD3F4 100%)', borderRadius: '15px', textDecoration: 'none', color: '#2c3e50', textAlign: 'center', boxShadow: 'var(--shadow-md)', marginTop: '20px', transition: 'transform 0.2s' }}>
+            <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '10px' }}>🐸📺</span>
+            <h4 style={{ margin: 0, fontSize: '1.2rem' }}>Ver Lista de Reproducción de Cachureos</h4>
+          </a>
         </div>
 
       </div>
