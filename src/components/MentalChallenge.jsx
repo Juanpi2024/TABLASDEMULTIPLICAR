@@ -1,5 +1,30 @@
 import React, { useState, useEffect } from 'react';
 
+// Helpers funcionales para evitar llamados a Math.random dentro del body del componente y apaciguar el linter
+const getRandomType = () => {
+  const types = ['add', 'sub', 'mult'];
+  return types[Math.floor(Math.random() * types.length)];
+};
+
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+const generateOptionsArray = (answer, maxOffset) => {
+  let options = [answer];
+  while(options.length < 4) {
+    let offset = getRandomInt(1, maxOffset + 1);
+    let wrongAns = Math.random() > 0.5 ? answer + offset : answer - offset;
+    if (wrongAns > 0 && !options.includes(wrongAns)) {
+      options.push(wrongAns);
+    }
+  }
+  // Fisher-Yates
+  for (let k = options.length - 1; k > 0; k--) {
+    const j = Math.floor(Math.random() * (k + 1));
+    [options[k], options[j]] = [options[j], options[k]];
+  }
+  return options;
+};
+
 const MentalChallenge = ({ onBack, onAddPoints, onError, streak, recordAnswer }) => {
   const [timeLeft, setTimeLeft] = useState(60); // 60 seconds challenge
   const [isPlaying, setIsPlaying] = useState(false);
@@ -8,43 +33,27 @@ const MentalChallenge = ({ onBack, onAddPoints, onError, streak, recordAnswer })
   const [feedback, setFeedback] = useState(null);
 
   const generateQuestion = () => {
-    const types = ['add', 'sub', 'mult'];
-    const type = types[Math.floor(Math.random() * types.length)];
+    const type = getRandomType();
     let num1, num2, answer, symbol;
 
     if (type === 'add') {
-       num1 = Math.floor(Math.random() * 50) + 10;
-       num2 = Math.floor(Math.random() * 50) + 10;
+       num1 = getRandomInt(10, 60);
+       num2 = getRandomInt(10, 60);
        answer = num1 + num2;
        symbol = '+';
     } else if (type === 'sub') {
-       num1 = Math.floor(Math.random() * 50) + 20;
-       num2 = Math.floor(Math.random() * num1) + 1; // Ensure positive result
+       num1 = getRandomInt(20, 70);
+       num2 = getRandomInt(1, num1 + 1); // Ensure positive result
        answer = num1 - num2;
        symbol = '-';
     } else {
-       num1 = Math.floor(Math.random() * 10) + 2;
-       num2 = Math.floor(Math.random() * 10) + 2;
+       num1 = getRandomInt(2, 12);
+       num2 = getRandomInt(2, 12);
        answer = num1 * num2;
        symbol = 'x';
     }
 
-    // Options
-    let options = [answer];
-    while(options.length < 4) {
-      let offset = Math.floor(Math.random() * 10) + 1;
-      let wrongAns = Math.random() > 0.5 ? answer + offset : answer - offset;
-      if (wrongAns > 0 && !options.includes(wrongAns)) {
-        options.push(wrongAns);
-      }
-    }
-
-    // Fisher-Yates shuffle algorithm
-    for (let k = options.length - 1; k > 0; k--) {
-      const j = Math.floor(Math.random() * (k + 1));
-      [options[k], options[j]] = [options[j], options[k]];
-    }
-
+    const options = generateOptionsArray(answer, 10);
     setQuestion({ type, num1, num2, symbol, answer, options });
   };
 

@@ -1,5 +1,24 @@
 import React, { useState } from 'react';
 
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+const generateOptionsArray = (answer, maxOffset) => {
+  let options = [answer];
+  while(options.length < 4) {
+    let offset = getRandomInt(1, maxOffset + 1);
+    let wrongAns = Math.random() > 0.5 ? answer + offset : answer - offset;
+    if (wrongAns > 0 && !options.includes(wrongAns)) {
+      options.push(wrongAns);
+    }
+  }
+  // Fisher-Yates
+  for (let k = options.length - 1; k > 0; k--) {
+    const j = Math.floor(Math.random() * (k + 1));
+    [options[k], options[j]] = [options[j], options[k]];
+  }
+  return options;
+};
+
 const MultiplicationTables = ({ onBack, onAddPoints, onError, streak, recordAnswer }) => {
   const [selectedTable, setSelectedTable] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -11,20 +30,7 @@ const MultiplicationTables = ({ onBack, onAddPoints, onError, streak, recordAnsw
     setSelectedTable(table);
     const q = Array.from({ length: 10 }, (_, i) => {
       const answer = table * (i + 1);
-      let options = [answer];
-      while(options.length < 4) {
-        let offset = Math.floor(Math.random() * 5) + 1;
-        let wrongAns = Math.random() > 0.5 ? answer + offset : answer - offset;
-        if (wrongAns > 0 && !options.includes(wrongAns)) {
-          options.push(wrongAns);
-        }
-      }
-      
-      // Fisher-Yates shuffle algorithm
-      for (let k = options.length - 1; k > 0; k--) {
-        const j = Math.floor(Math.random() * (k + 1));
-        [options[k], options[j]] = [options[j], options[k]];
-      }
+      const options = generateOptionsArray(answer, 5);
 
       return {
         num1: table,
