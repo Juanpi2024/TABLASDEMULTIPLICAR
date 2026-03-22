@@ -38,7 +38,12 @@ const MentalChallenge = ({ onBack, onAddPoints, onError, streak, recordAnswer })
         options.push(wrongAns);
       }
     }
-    options.sort(() => Math.random() - 0.5);
+
+    // Fisher-Yates shuffle algorithm
+    for (let k = options.length - 1; k > 0; k--) {
+      const j = Math.floor(Math.random() * (k + 1));
+      [options[k], options[j]] = [options[j], options[k]];
+    }
 
     setQuestion({ type, num1, num2, symbol, answer, options });
   };

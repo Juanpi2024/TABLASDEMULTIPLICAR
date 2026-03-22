@@ -19,7 +19,13 @@ const MultiplicationTables = ({ onBack, onAddPoints, onError, streak, recordAnsw
           options.push(wrongAns);
         }
       }
-      options.sort(() => Math.random() - 0.5);
+      
+      // Fisher-Yates shuffle algorithm
+      for (let k = options.length - 1; k > 0; k--) {
+        const j = Math.floor(Math.random() * (k + 1));
+        [options[k], options[j]] = [options[j], options[k]];
+      }
+
       return {
         num1: table,
         num2: i + 1,
